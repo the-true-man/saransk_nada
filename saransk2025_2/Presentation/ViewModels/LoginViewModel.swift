@@ -13,11 +13,17 @@ import Alamofire
 final class LoginViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
-    
+    @Published var isConnected = true
     let supabase = SupabaseService()
     let supabase2 = SupabaseService2()
-    
+    var canc: Set<AnyCancellable> = []
     init() {
+        let nw = NetworkMonitor.shared
+        nw.$isConnected
+            .sink { [weak self] isConnected in
+                self?.isConnected = isConnected
+            }
+            .store(in: &canc)
         getGames()
     }
     func getGames() {

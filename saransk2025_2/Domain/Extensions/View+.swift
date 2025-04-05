@@ -13,4 +13,15 @@ extension View {
         /// Задает основной шрифт с разными вариантомы стиля и цветом
         self.font(.custom("Fredoka", size: size)).fontWeight(weight).foregroundColor(foreground)
     }
+    
+    func notConnecting(connection: Bool) -> some View {
+        Group {
+        if connection {
+            self
+        }
+            else {
+                NotConnectionView()
+            }
+        }
+    }
 }

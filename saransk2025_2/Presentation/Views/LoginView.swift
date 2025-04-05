@@ -49,6 +49,7 @@ struct LoginView: View {
             .buttonStyle(MainButtonStyle())
             .padding( 24)
             HStack {
+                Text(model.isConnected ? "Подключен" : "Не подключен")
                 Text("Not you member?")
                     .font(size: 17, weight: .regular, foreground: .dGray)
 
@@ -67,6 +68,7 @@ struct LoginView: View {
         .onAppear {
             
         }
+        .notConnecting(connection: model.isConnected)
     }
 }
 
