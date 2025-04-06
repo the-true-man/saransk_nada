@@ -69,6 +69,7 @@ struct LoginView: View {
             
         }
         .notConnecting(connection: model.isConnected)
+        .onLoadingProccess(isLoading: model.isLoading)
     }
 }
 

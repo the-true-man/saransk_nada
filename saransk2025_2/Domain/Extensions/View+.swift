@@ -24,4 +24,28 @@ extension View {
             }
         }
     }
+    
+    @ViewBuilder
+    func onLoading(isLoading: Bool) -> some View {
+        if isLoading {
+            ProgressView()
+        }
+        else {
+            self
+        }
+    }
+    
+    @ViewBuilder
+    func onLoadingProccess(isLoading: Bool ) -> some View {
+        if isLoading {
+            ZStack {
+                self
+                ProgressView()
+            }
+        }
+        else {
+            self
+        }
+    }
+    
 }

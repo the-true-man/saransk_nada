@@ -10,10 +10,12 @@ import SwiftUI
 import Combine
 import Alamofire
 
+@MainActor
 final class LoginViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var isConnected = true
+    @Published var isLoading = false
     let supabase = SupabaseService()
     let supabase2 = SupabaseService2()
     var canc: Set<AnyCancellable> = []
@@ -58,6 +60,7 @@ final class LoginViewModel: ObservableObject {
         //            }
         //        }
         Task {
+            isLoading = true
             do {
                 let response = try await SupabaseService2().signIn(email: email, password: password)
                 print("Auth response:", response)
@@ -65,8 +68,15 @@ final class LoginViewModel: ObservableObject {
                     print("Authenticated successfully! Token:", accessToken)
                 }
             } catch {
-                print("Auth error:", error)
+                let error = String(describing: error)
+                print("Auth error:", String(describing: error))
+                if error.contains("Invalid login") {
+                    print("неверный емайл или пароль")
+                }
+                
+                
             }
+            isLoading = false
         }
     }
     
