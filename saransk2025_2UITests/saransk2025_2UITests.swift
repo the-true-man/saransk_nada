@@ -26,6 +26,7 @@ final class saransk2025_2UITests: XCTestCase {
     func testExample() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
+        app.launchArguments = ["-signin"]
         app.launch()
 
         // Use XCTAssert and related functions to verify your tests produce the correct results.

@@ -20,7 +20,7 @@ struct SignUpFirstView: View {
             VStack(spacing: 24) {
                 CustomTextField(label: "First Name", placeholder: "Your First Name", text: $model.firstName, isSecure: false)
                 CustomTextField(label: "Last Name", placeholder: "Your Last Name", text: $model.lastName, isSecure: false)
-                CustomTextField(label: "Email Address", placeholder: "Email", text: $model.firstName, isSecure: false)
+                CustomTextField(label: "Email Address", placeholder: "Email", text: $model.email, isSecure: false)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 10)

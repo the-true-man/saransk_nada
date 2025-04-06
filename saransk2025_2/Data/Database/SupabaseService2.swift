@@ -84,4 +84,38 @@ extension SupabaseService2 {
         
         return json
     }
+    func signUp(email: String, password: String) async throws -> [String: Any] {
+        let endpoint = "\(baseUrl)/auth/v1/signup"
+        var request = URLRequest(url: URL(string: endpoint)!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(apiKey, forHTTPHeaderField: "apikey")
+        
+        let requestBody: [String: Any] = [
+            "email": email,
+            "password": password,
+
+        ]
+        
+        request.httpBody = try JSONSerialization.data(withJSONObject: requestBody)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw URLError(.badServerResponse)
+        }
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              (200...299).contains(httpResponse.statusCode) else {
+            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
+            throw NSError(domain: "HTTP Error", code: statusCode, userInfo: try? JSONSerialization.jsonObject(with: data) as? [String: Any])
+        }
+        
+        // Парсим ответ
+        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            throw NSError(domain: "Invalid JSON", code: 0)
+        }
+        
+        return json
+    }
 }

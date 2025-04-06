@@ -15,4 +15,15 @@ final class SignUpViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     @Published var acceptRules: Bool = false
+    private let supabase = SupabaseService2()
+    func signUp() {
+        Task {
+            do {
+                try await supabase.signUp(email: email, password: password)
+            }
+            catch {
+                print(error)
+            }
+        }
+    }
 }

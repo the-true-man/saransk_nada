@@ -12,7 +12,7 @@ struct saransk2025_2App: App {
     @State var isLaunchComplete = false
     var body: some Scene {
         WindowGroup {
-            if ProcessInfo.processInfo.arguments.contains("--test_signin") {
+            if ProcessInfo.processInfo.arguments.contains("-signin") {
                 LoginView()
             }
             else {

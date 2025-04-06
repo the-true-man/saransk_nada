@@ -54,7 +54,7 @@ struct SignUpSecondView: View {
             .padding(.horizontal, 24)
             
             Button {
-                
+                model.signUp()
             } label: {
                 Text("Singup")
             }
